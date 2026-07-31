@@ -1,0 +1,7 @@
+method,features,adjusted_rand_index,silhouette
+raw standardized samples,512,1.0,0.3268639676285143
+wavelet (haar),4,1.0,0.9288592857991357
+wavelet (db2),22,1.0,0.8366364195701955
+wavelet (sym2),22,1.0,0.836636419570285
+wavelet (coif1),44,1.0,0.7704671942465631
+wavelet (sym3),44,1.0,0.7728959105350367
