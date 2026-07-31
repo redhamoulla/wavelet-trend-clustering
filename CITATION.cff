@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "Please cite the original article when using this software."
+title: "Wavelet Trend Clustering"
+type: software
+version: 0.1.0
+date-released: 2026-07-31
+license: BSD-3-Clause
+preferred-citation:
+  type: article
+  title: "Wavelet-based clustering for time-series trend detection"
+  authors:
+    - family-names: Talbo
+      given-names: Vincent
+    - family-names: Haddab
+      given-names: Mehdi
+    - family-names: Aubert
+      given-names: Derek
+    - family-names: Moulla
+      given-names: Redha
+  year: 2020
+  identifiers:
+    - type: url
+      value: "https://arxiv.org/abs/2011.12111"
