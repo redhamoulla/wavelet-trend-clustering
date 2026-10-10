@@ -19,6 +19,7 @@ def make_dataset(
     n_per_cluster: int = 50,
     n_timestamps: int = 512,
     random_state: int = 42,
+    noise_scale: float = 0.8,
 ) -> tuple[np.ndarray, np.ndarray]:
     """Build noisy series with amplitude/offset nuisance variation."""
     rng = np.random.default_rng(random_state)
@@ -33,7 +34,7 @@ def make_dataset(
         for _ in range(n_per_cluster):
             scale = rng.uniform(0.6, 1.5)
             offset = rng.uniform(-20, 20)
-            local = rng.normal(scale=0.8, size=n_timestamps)
+            local = rng.normal(scale=noise_scale, size=n_timestamps)
             high_frequency = 0.4 * np.sin(
                 2 * np.pi * rng.integers(20, 50) * time + rng.uniform(0, 2 * np.pi)
             )

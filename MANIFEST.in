@@ -1,4 +1,4 @@
 include CITATION.cff
-recursive-include artifacts *.csv *.png
+recursive-include artifacts *.csv *.png *.svg *.json
 recursive-include docs *.md *.svg
 recursive-include examples *.py
