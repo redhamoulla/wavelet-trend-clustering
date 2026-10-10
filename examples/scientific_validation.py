@@ -18,13 +18,12 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import adjusted_rand_score, silhouette_score
 from synthetic_benchmark import make_dataset
 
-from wavelet_clustering import WaveletFeatureExtractor, WaveletKMeans
-from wavelet_clustering import wavelet_consensus
+from wavelet_clustering import WaveletFeatureExtractor, WaveletKMeans, wavelet_consensus
 
 ROOT = Path(__file__).resolve().parents[1]
 WAVELETS = ("haar", "db2", "sym2", "coif1", "sym3")
 SEEDS = tuple(range(5))
-NOISE_LEVELS = (0.2, 0.8, 1.6, 3.2)
+NOISE_LEVELS = (0.2, 0.8, 1.6, 3.2, 6.4, 12.8)
 
 
 def write_table(out, name, rows):
