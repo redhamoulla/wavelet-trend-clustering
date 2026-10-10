@@ -1,0 +1,287 @@
+{
+  "protocol": {
+    "n_series": 150,
+    "timestamps": 512,
+    "reference_dataset_seed": 42,
+    "kmeans_seed": 0,
+    "n_init": 20,
+    "sweep_dataset_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "noise_levels": [
+      0.2,
+      0.8,
+      1.6,
+      3.2,
+      6.4,
+      12.8
+    ]
+  },
+  "metrics": {
+    "positive_affine_max_error": 6.306066779870889e-14,
+    "centroid_linearity_max_error": 8.881784197001252e-16,
+    "original_scale_max_error": 1.4210854715202004e-14,
+    "discarded_detail_feature_distance": 0.0,
+    "discarded_detail_signal_distance": 22.62741699796952,
+    "consensus_min_eigenvalue": -1.1102230246251565e-16,
+    "consensus_symmetry_defect": 0.0
+  },
+  "reference": [
+    {
+      "method": "raw",
+      "features": 512,
+      "ari": 1.0,
+      "silhouette_feature_space": 0.3268639676285143,
+      "silhouette_common_raw_space": 0.3268639676285143
+    },
+    {
+      "method": "haar",
+      "features": 4,
+      "ari": 1.0,
+      "silhouette_feature_space": 0.928859285799136,
+      "silhouette_common_raw_space": 0.3268639676285143
+    },
+    {
+      "method": "db2",
+      "features": 22,
+      "ari": 1.0,
+      "silhouette_feature_space": 0.8366364195701955,
+      "silhouette_common_raw_space": 0.3268639676285143
+    },
+    {
+      "method": "sym2",
+      "features": 22,
+      "ari": 1.0,
+      "silhouette_feature_space": 0.836636419570285,
+      "silhouette_common_raw_space": 0.3268639676285143
+    },
+    {
+      "method": "coif1",
+      "features": 44,
+      "ari": 1.0,
+      "silhouette_feature_space": 0.770467194246563,
+      "silhouette_common_raw_space": 0.3268639676285143
+    },
+    {
+      "method": "sym3",
+      "features": 44,
+      "ari": 1.0,
+      "silhouette_feature_space": 0.7728959105350369,
+      "silhouette_common_raw_space": 0.3268639676285143
+    }
+  ],
+  "noise_summary": [
+    {
+      "method": "raw",
+      "noise_scale": 0.2,
+      "ari_mean": 1.0,
+      "ari_std": 0.0,
+      "ari_min": 1.0,
+      "ari_max": 1.0
+    },
+    {
+      "method": "raw",
+      "noise_scale": 0.8,
+      "ari_mean": 1.0,
+      "ari_std": 0.0,
+      "ari_min": 1.0,
+      "ari_max": 1.0
+    },
+    {
+      "method": "raw",
+      "noise_scale": 1.6,
+      "ari_mean": 1.0,
+      "ari_std": 0.0,
+      "ari_min": 1.0,
+      "ari_max": 1.0
+    },
+    {
+      "method": "raw",
+      "noise_scale": 3.2,
+      "ari_mean": 1.0,
+      "ari_std": 0.0,
+      "ari_min": 1.0,
+      "ari_max": 1.0
+    },
+    {
+      "method": "raw",
+      "noise_scale": 6.4,
+      "ari_mean": 0.5034653888165013,
+      "ari_std": 0.06699442106335916,
+      "ari_min": 0.44873287593048444,
+      "ari_max": 0.5904995804758777
+    },
+    {
+      "method": "raw",
+      "noise_scale": 12.8,
+      "ari_mean": 0.021538724042189168,
+      "ari_std": 0.024808337058300284,
+      "ari_min": -0.007419085096581845,
+      "ari_max": 0.06004047856105244
+    },
+    {
+      "method": "haar",
+      "noise_scale": 0.2,
+      "ari_mean": 1.0,
+      "ari_std": 0.0,
+      "ari_min": 1.0,
+      "ari_max": 1.0
+    },
+    {
+      "method": "haar",
+      "noise_scale": 0.8,
+      "ari_mean": 1.0,
+      "ari_std": 0.0,
+      "ari_min": 1.0,
+      "ari_max": 1.0
+    },
+    {
+      "method": "haar",
+      "noise_scale": 1.6,
+      "ari_mean": 1.0,
+      "ari_std": 0.0,
+      "ari_min": 1.0,
+      "ari_max": 1.0
+    },
+    {
+      "method": "haar",
+      "noise_scale": 3.2,
+      "ari_mean": 1.0,
+      "ari_std": 0.0,
+      "ari_min": 1.0,
+      "ari_max": 1.0
+    },
+    {
+      "method": "haar",
+      "noise_scale": 6.4,
+      "ari_mean": 0.9800952726037186,
+      "ari_std": 0.019864120486103705,
+      "ari_min": 0.9602666666666667,
+      "ari_max": 1.0
+    },
+    {
+      "method": "haar",
+      "noise_scale": 12.8,
+      "ari_mean": 0.6067816664719432,
+      "ari_std": 0.0734392736419426,
+      "ari_min": 0.515529191943505,
+      "ari_max": 0.6760044031602979
+    },
+    {
+      "method": "sym2",
+      "noise_scale": 0.2,
+      "ari_mean": 1.0,
+      "ari_std": 0.0,
+      "ari_min": 1.0,
+      "ari_max": 1.0
+    },
+    {
+      "method": "sym2",
+      "noise_scale": 0.8,
+      "ari_mean": 1.0,
+      "ari_std": 0.0,
+      "ari_min": 1.0,
+      "ari_max": 1.0
+    },
+    {
+      "method": "sym2",
+      "noise_scale": 1.6,
+      "ari_mean": 1.0,
+      "ari_std": 0.0,
+      "ari_min": 1.0,
+      "ari_max": 1.0
+    },
+    {
+      "method": "sym2",
+      "noise_scale": 3.2,
+      "ari_mean": 1.0,
+      "ari_std": 0.0,
+      "ari_min": 1.0,
+      "ari_max": 1.0
+    },
+    {
+      "method": "sym2",
+      "noise_scale": 6.4,
+      "ari_mean": 0.9760816735473267,
+      "ari_std": 0.01659530601932853,
+      "ari_min": 0.9602666666666667,
+      "ari_max": 1.0
+    },
+    {
+      "method": "sym2",
+      "noise_scale": 12.8,
+      "ari_mean": 0.5946338021252467,
+      "ari_std": 0.07013749902868609,
+      "ari_min": 0.5385229670157717,
+      "ari_max": 0.6759157744293689
+    },
+    {
+      "method": "sym3",
+      "noise_scale": 0.2,
+      "ari_mean": 1.0,
+      "ari_std": 0.0,
+      "ari_min": 1.0,
+      "ari_max": 1.0
+    },
+    {
+      "method": "sym3",
+      "noise_scale": 0.8,
+      "ari_mean": 1.0,
+      "ari_std": 0.0,
+      "ari_min": 1.0,
+      "ari_max": 1.0
+    },
+    {
+      "method": "sym3",
+      "noise_scale": 1.6,
+      "ari_mean": 1.0,
+      "ari_std": 0.0,
+      "ari_min": 1.0,
+      "ari_max": 1.0
+    },
+    {
+      "method": "sym3",
+      "noise_scale": 3.2,
+      "ari_mean": 1.0,
+      "ari_std": 0.0,
+      "ari_min": 1.0,
+      "ari_max": 1.0
+    },
+    {
+      "method": "sym3",
+      "noise_scale": 6.4,
+      "ari_mean": 0.9727263177188259,
+      "ari_std": 0.03983358810257883,
+      "ari_min": 0.9037675791580496,
+      "ari_max": 1.0
+    },
+    {
+      "method": "sym3",
+      "noise_scale": 12.8,
+      "ari_mean": 0.5193879075901825,
+      "ari_std": 0.12428508219191009,
+      "ari_min": 0.3957640095010848,
+      "ari_max": 0.7113027374741488
+    }
+  ],
+  "checks": {
+    "positive_affine_invariance": true,
+    "constant_series_map_to_zero": true,
+    "reconstruction_commutes_with_average": true,
+    "original_scale_reconstruction": true,
+    "discarded_detail_collision": true,
+    "haar_orthogonal_periodic_case": true,
+    "sym2_orthogonal_periodic_case": true,
+    "consensus_unit_diagonal": true,
+    "consensus_symmetric": true,
+    "consensus_positive_semidefinite": true,
+    "haar_846_dimension": true,
+    "sym2_846_dimension": true,
+    "sym3_846_dimension": true,
+    "reference_synthetic_labels": true
+  }
+}

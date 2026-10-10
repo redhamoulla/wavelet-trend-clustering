@@ -1,0 +1,16 @@
+{
+  "python": "3.12.15",
+  "numpy": "2.5.3",
+  "pywavelets": "1.8.0",
+  "scikit_learn": "1.9.1",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "commit": "ba2236f4559ff8aa7d70b29d08fe3edd0e5c1231",
+  "sources": {
+    "src/wavelet_clustering/__init__.py": "9ed3e1a3d844b314ad8d6011383fabad213bff5b576dfb5efe4b3cd5beb02cca",
+    "src/wavelet_clustering/_diagnostics.py": "874806688db03c525eb13c29fafbb9d50e09ade80c2646b5233afd2bff49f809",
+    "src/wavelet_clustering/_estimator.py": "b445cdfd3a4e7524e03204770a3dae50664af02b5491e57bcf5d37ab2471a8e2",
+    "src/wavelet_clustering/_features.py": "928b33bcb81d6d0203e5e81e2fd5c94e1ae93ba8a1c406a6c735d03e00a3c260",
+    "examples/scientific_validation.py": "90c6fc217a057cfe71106c487d2b7056e0d8e71041cd31432026cdaafd2b0fc4",
+    "examples/synthetic_benchmark.py": "31760b563b346795b77af9c8d711af8634d5c242a135b026cc0f3b4edba7dcf0"
+  }
+}

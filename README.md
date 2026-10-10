@@ -1,147 +1,93 @@
 # Wavelet Trend Clustering
 
-<p align="center">
-  <img src="docs/assets/overview.svg" alt="Wavelet Trend Clustering: from a noisy signal to low-frequency coefficients and interpretable trend clusters" width="100%">
-</p>
+![From noisy time series to wavelet coefficients and trend clusters](docs/assets/overview.svg)
 
-<p align="center">
-  <a href="https://github.com/redhamoulla/wavelet-trend-clustering/actions/workflows/ci.yml"><img src="https://github.com/redhamoulla/wavelet-trend-clustering/actions/workflows/ci.yml/badge.svg" alt="CI status"></a>
-  <img src="https://img.shields.io/badge/python-3.9%20%E2%80%93%203.12-3776AB" alt="Python 3.9 to 3.12">
-  <img src="https://img.shields.io/badge/license-BSD--3--Clause-6366F1" alt="BSD 3-Clause license">
-</p>
+[![CI](https://github.com/redhamoulla/wavelet-trend-clustering/actions/workflows/ci.yml/badge.svg)](https://github.com/redhamoulla/wavelet-trend-clustering/actions/workflows/ci.yml)
+[![Scientific validation](https://github.com/redhamoulla/wavelet-trend-clustering/actions/workflows/scientific-validation.yml/badge.svg)](https://github.com/redhamoulla/wavelet-trend-clustering/actions/workflows/scientific-validation.yml)
 
-An interpretable, scikit-learn-compatible implementation of the method from
-Talbo et al., [*Wavelet-based clustering for time-series trend detection*](https://arxiv.org/abs/2011.12111).
+Cluster aligned time series by their coarse wavelet structure. The package
+z-normalizes each series, retains the coarsest approximation and detail bands,
+and fits k-means with k-means++ initialization. Reconstructed trends make the
+representation easier to inspect.
 
-The method clusters aligned time series by long-term behavior instead of raw
-point-to-point noise. It z-normalizes each series, computes a discrete wavelet
-transform, keeps only the coarsest `(c0, d0, d1)` coefficients, and applies
-k-means++ in that compact feature space.
+Based on Talbo, Haddab, Aubert and Moulla (2020),
+[*Wavelet-based clustering for time-series trend detection*](https://arxiv.org/abs/2011.12111).
 
-## How it works
+**[Read the scientific manuscript →](docs/manuscript.md)**  
+Theory, derivations, implementation choices, experiments, limitations and
+references are collected in this single document.
 
-```mermaid
-flowchart LR
-    A["Aligned time series"] --> B["Per-series<br/>z-normalization"]
-    B --> C["Maximum-level<br/>discrete wavelet transform"]
-    C --> D["Keep coarse bands<br/>c₀ · d₀ · d₁"]
-    D --> E["k-means++"]
-    E --> F["Trend clusters"]
-    D --> G["Inverse DWT"]
-    G --> H["Interpretable<br/>reconstructed trends"]
+## Repository guide
 
-    classDef input fill:#ecfeff,stroke:#0891b2,color:#164e63
-    classDef transform fill:#eef2ff,stroke:#6366f1,color:#312e81
-    classDef output fill:#faf5ff,stroke:#9333ea,color:#581c87
-    class A input
-    class B,C,D,E transform
-    class F,G,H output
-```
+| Location | Contents |
+|---|---|
+| [Scientific manuscript](docs/manuscript.md) | Complete scientific presentation |
+| [Python package](src/wavelet_clustering) | Feature extraction, clustering and reconstruction |
+| [Examples](examples) | Runnable benchmark and validation protocol |
+| [Recorded results](artifacts/validation) | CSV data, SVG figures, checks and environment manifest |
+| [Tests](tests) | Estimator behavior and dimensionality regression tests |
+| [Workflows](.github/workflows) | Tests, lint, package build and scientific validation |
 
-## Installation
+## Install and use
+
+Python 3.9 or newer:
 
 ```bash
-python -m pip install -e .
-```
-
-For the benchmark and development tools:
-
-```bash
+git clone https://github.com/redhamoulla/wavelet-trend-clustering.git
+cd wavelet-trend-clustering
 python -m pip install -e ".[dev]"
 ```
 
-## Quick start
-
-`X` must have shape `(n_series, n_timestamps)`. All series must be finite,
-equal-length and aligned in time.
+Given a finite array `X` with shape `(n_series, n_timestamps)` and a common
+time grid:
 
 ```python
-from wavelet_clustering import WaveletKMeans
+from wavelet_clustering import WaveletKMeans, wavelet_consensus
 
-model = WaveletKMeans(
-    n_clusters=3,
-    wavelet="sym2",
-    random_state=0,
-)
+model = WaveletKMeans(n_clusters=3, wavelet="sym2", random_state=0)
 labels = model.fit_predict(X)
-
-# Low-dimensional (c0, d0, d1) representation
 features = model.wavelet_features_
-
-# Smooth standardized signals containing only the retained trend
 trends = model.reconstruct_trends(X)
+trends_in_original_units = model.reconstruct_trends(X, original_scale=True)
 
-# Assign new, equally long and aligned time series
-new_labels = model.predict(X_new)
+# Compare partitions obtained with the default five wavelets.
+agreement = wavelet_consensus(X).agreement
 ```
 
-To assess sensitivity to the mother wavelet:
+For new series on the same grid, use `model.predict(X_new)`.
+`model.transform(X)` returns distances to centroids; use
+`model.extract_features(X)` for the retained wavelet coefficients.
+See the [API and usage notes](docs/manuscript.md#8-api-and-practical-use)
+for reconstruction of cluster centers and interpretation.
 
-```python
-from wavelet_clustering import wavelet_consensus
-
-result = wavelet_consensus(X, wavelets=("haar", "db2", "sym2", "coif1"))
-agreement = result.agreement  # pairwise co-clustering frequency
-```
-
-## Reproduce the synthetic experiment
+## Reproduce the results
 
 ```bash
 python examples/synthetic_benchmark.py --output-dir artifacts
-```
-
-The experiment creates increasing, stagnating and seasonal series with random
-offsets, amplitudes, noise and high-frequency nuisance oscillations. It reports
-the adjusted Rand index, silhouette score and dimensionality for raw k-means
-and five wavelet variants, then saves a visualization of reconstructed trends.
-
-Results with the fixed seed (`n=150`, 512 timestamps):
-
-| Method | Features | Adjusted Rand index | Silhouette |
-|---|---:|---:|---:|
-| Raw standardized samples | 512 | 1.000 | 0.327 |
-| Haar | 4 | 1.000 | 0.929 |
-| Symlet 2 | 22 | 1.000 | 0.837 |
-| Symlet 3 | 44 | 1.000 | 0.773 |
-
-The benchmark is intentionally simple and auditable. The labels are recovered
-by both approaches, while the wavelet representation uses 12-128 times fewer
-features and produces substantially more separated clusters.
-
-<p align="center">
-  <img src="artifacts/synthetic_trends.png" alt="Reconstructed increasing, stagnating, and seasonal synthetic trends" width="100%">
-</p>
-
-<p align="center"><em>Symlet 2 reconstruction: individual retained trends in blue and the mean trend in red.</em></p>
-
-## Why this implementation is faithful
-
-- independent standard normalization of every series;
-- maximum valid DWT decomposition level;
-- zero-padding at boundaries;
-- only `(c0, d0, d1)` retained by default;
-- k-means with k-means++ initialization;
-- regression tests for the paper's dimensionality calculation (including a
-  documented 14-versus-8 inconsistency for Haar in Table I).
-
-See [the method notes](docs/method.md) for notation, assumptions and the exact
-mapping to PyWavelets.
-
-## Development
-
-```bash
+python examples/scientific_validation.py --output-dir artifacts/validation
 pytest
 ruff check .
 python -m build
 ```
 
-## Citation
+The reference experiment contains 150 synthetic series of length 512. Raw
+k-means and all five wavelet variants recover its three classes exactly.
+The wavelet representations use 4–44 features. Silhouettes calculated in
+different feature spaces measure different geometries; their increase is
+**not evidence of a better recovered partition**.
 
-If this package supports your work, cite the original article:
+The extended protocol includes a noise sweep, boundary and retained-level
+comparisons, a discarded-information counterexample, reconstruction checks
+and wavelet consensus. Its results and assumptions are discussed in the
+[experimental section](docs/manuscript.md#7-reproducible-experiments).
+The original retail data are not included, so these experiments validate
+the public implementation on synthetic data.
 
-> V. Talbo, M. Haddab, D. Aubert, and R. Moulla (2020). Wavelet-based
-> clustering for time-series trend detection. arXiv:2011.12111.
+## Citation and license
 
-## License
+> V. Talbo, M. Haddab, D. Aubert, and R. Moulla (2020).  
+> *Wavelet-based clustering for time-series trend detection*.  
+> arXiv:2011.12111.
 
-BSD 3-Clause. See [LICENSE](LICENSE).
+Machine-readable citation: [CITATION.cff](CITATION.cff).  
+Code license: [BSD 3-Clause](LICENSE).
